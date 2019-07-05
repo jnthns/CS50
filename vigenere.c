@@ -42,28 +42,31 @@ int main(int argc, string argv[])
         {
             int loc = i % strlen(key);
             
-            if (islower(plaintext[i]))
+            if (!isspace(plaintext[i]))
             {
-                if (array[loc] < 97)
+                if (islower(plaintext[i]))
                 {
-                    array[loc] += 32;
-                    output[i] = (((plaintext[i] + (array[loc]-'a')) - 'a') % 26) + 'a';
+                    if (array[loc] < 'a')
+                    {
+                        array[loc] += 32;
+                        output[i] = (((plaintext[i] + (array[loc]-'a')) - 'a') % 26) + 'a';
+                    }
+                    else
+                    {
+                        output[i] = (((plaintext[i] + (array[loc]-'a')) - 'a') % 26) + 'a';
+                    }
                 }
-                else
+                else if (isupper(plaintext[i]))
                 {
-                    output[i] = (((plaintext[i] + (array[loc]-'a')) - 'a') % 26) + 'a';
-                }
-            }
-            else
-            {
-                if (array[loc] < 97)
-                {
-                    output[i] = (((plaintext[i] + (array[loc]-'A')) - 'A') % 26) + 'A';
-                }
-                else
-                {
-                    array[loc] -= 32;
-                    output[i] = (((plaintext[i] + (array[loc]-'A')) - 'A') % 26) + 'A';
+                    if (array[loc] < 'a')
+                    {
+                        output[i] = (((plaintext[i] + (array[loc]-'A')) - 'A') % 26) + 'A';
+                    }
+                    else
+                    {
+                        array[loc] -= 32;
+                        output[i] = (((plaintext[i] + (array[loc]-'A')) - 'A') % 26) + 'A';
+                    }
                 }
             } 
         }
